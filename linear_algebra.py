@@ -5,6 +5,8 @@
 # mean of multiple vectors in vector_mean()
 # dot product in dot()
 # magnitude in magnitude()
+import math
+
 class ShapeError(Exception):
     pass
 
@@ -12,22 +14,37 @@ def shape(vector):
     return (len(vector), )
 
 def vector_add(a, b):
-    vector = [a + b for a, b in zip(a, b)]
-    return vector
-
-def vector_add_is_commutative(a, b):
-    pass
-
-def vector_add_checks_shapes():
-    pass
-
+    if len(a) != len(b):
+        raise ShapeError
+    return [a + b for a, b in zip(a, b)]
 
 def vector_sub (a, b):
-    vector = [x - y for x, y in zip(a, b)]
-    return vector
+    if len(a) != len(b):
+        raise ShapeError
+    return [x - y for x, y in zip(a, b)]
 
-def vector_sum (a, b, c, d, e):
-    vector = [a + b + c + d + e for a, b, c, d, e in zip(a, b, c, d, e)]
-    return vector
+# def vector_sum (*args):
+#     max_len = max([len(x) for x in args])
+#     vector = [sum(x) for arg in zip(args)]
+#     return vector
 
-    # vector = [sum(args) for x in zip(args)]
+def vector_multiply(vector, scalar):
+    return [x * scalar for x in vector]
+
+def dot(a, b):
+    if len(a) != len(b):
+        raise ShapeError
+    return sum([a*b for (a, b) in zip(a, b)])
+
+def vector_mean(vector1 ,vector2):
+    return [(a + b) / 2 for a, b in zip(vector1, vector2)]
+
+def are_equal():
+    pass
+
+def magnitude(vector):
+    return math.sqrt(sum([x**2 for x in vector]))
+# def vector_sum(*args):
+    # find max length of args
+    # pad smaller lists with 0s
+    # sum all lists
